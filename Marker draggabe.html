@@ -1,0 +1,30 @@
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+
+<script>
+
+    var homeLatlng = new google.maps.LatLng(16.61096000671, 120.31346130371);
+    var homeMarker = new google.maps.Marker({
+        position: homeLatlng,
+        map: map
+    });
+
+    var myOptions = {
+        center: new google.maps.LatLng(16.61096000671, 120.31346130371),
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map =
+        new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    //I know that I'm the one who set the coordinates for this,
+    // but how do I fetch it back?
+
+    $('#plot').click(function(){
+        homeMarker.setMap(map);
+    });
+
+</script>
+	
+homeMarker.getPosition(); //returns a google.maps.LatLng object

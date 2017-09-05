@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maximum Zoom imagery service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+var map;
+var maxZoomService;
+
+function initialize() {
+  var mapOptions = {
+    zoom: 11,
+    center: new google.maps.LatLng(35.6894875, 139.6917064),
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
+
+  maxZoomService = new google.maps.MaxZoomService();
+
+  google.maps.event.addListener(map, 'click', showMaxZoom);
+}
+
+function showMaxZoom(e) {
+  maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {
+    if (response.status != google.maps.MaxZoomStatus.OK) {
+      alert('Error in MaxZoomService');
+      return;
+    } else {
+      alert('The maximum zoom at this location is: ' + response.zoom);
+    }
+    map.panTo(e.latLng);
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
